@@ -40,10 +40,11 @@ run() {
 C_RESET="" C_INFO="" C_WARN="" C_ERR="" C_DBG="" C_MUT=""
 
 setup_colors() {
+  local enable=0
   case "$USE_COLOR" in
     always) enable=1 ;;
     never)  enable=0 ;;
-    auto)   [[ -t 2 && -z "${NO_COLOR:-}" ]] && enable=1 ;;
+    auto)   if [[ -t 2 && -z "${NO_COLOR:-}" ]]; then enable=1; fi ;;
   esac
 
   if [[ $enable -eq 1 ]]; then
