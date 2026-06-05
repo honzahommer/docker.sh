@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# --- Version (updated by semantic-release) ---
+VERSION="0.0.0-dev"
+
 # --- Temporary Docker config directory ---
 DOCKER_CONFIG="$(mktemp -d)"
 export DOCKER_CONFIG
@@ -98,6 +101,7 @@ Options:
   -c, --color    when     Colorize output: auto, always, never (default: auto)
   -d, --dry-run           Print commands instead of executing them
   -q, --quiet             Suppress informational output
+  -v, --version           Show version and exit
   -h                      Show this help and exit
 EOF
 }
@@ -136,6 +140,7 @@ while [[ $# -gt 0 ]]; do
       USE_COLOR="$2"; shift 2 ;;
     -d|--dry-run)  DRY_RUN=1; shift ;;
     -q|--quiet)    QUIET=1; shift ;;
+    -v|--version)  printf '%s\n' "${0##*/} $VERSION"; exit 0 ;;
     -h)            usage; exit 0 ;;
     --)            shift; break ;;
     *)             break ;;
