@@ -57,14 +57,16 @@ setup() {
 
 # ---- quiet login -----------------------------------------------------------
 
-@test "quiet login to GHCR suppresses info output" {
+@test "quiet mode suppresses info output against GHCR" {
   run bash "$SCRIPT" \
     -u "$GHCR_USERNAME" \
     -p "$GHCR_TOKEN" \
     -r ghcr.io \
-    -q info
+    -q -d info
   [ "$status" -eq 0 ]
   [[ "$output" != *"[INFO]"* ]]
+  # dry-run debug lines are also suppressed by --quiet
+  [[ "$output" != *"[DEBUG]"* ]]
 }
 
 # ---- bad credentials ------------------------------------------------------
