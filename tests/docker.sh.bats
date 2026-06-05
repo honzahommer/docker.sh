@@ -43,6 +43,20 @@ teardown() {
   rm -rf "$TEST_DIR"
 }
 
+# ---- version --------------------------------------------------------------
+
+@test "-v prints version and exits 0" {
+  run bash "$SCRIPT" -v
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"docker.sh "* ]]
+}
+
+@test "--version prints version and exits 0" {
+  run bash "$SCRIPT" --version
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"docker.sh "* ]]
+}
+
 # ---- help & usage ---------------------------------------------------------
 
 @test "-h prints usage and exits 0" {
@@ -51,6 +65,7 @@ teardown() {
   [[ "$output" == *"Usage:"* ]]
   [[ "$output" == *"--username"* ]]
   [[ "$output" == *"--dry-run"* ]]
+  [[ "$output" == *"--version"* ]]
 }
 
 # ---- dry-run mode ---------------------------------------------------------
