@@ -31,6 +31,22 @@ jobs:
       - name: Run unit tests
         run: bats tests/docker.sh.bats
 
+  minify:
+    name: Minify Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shfmt
+        run: |
+          curl -sS https://webi.sh/shfmt | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Verify minification works
+        run: |
+          shfmt -mn docker.sh > docker.min.sh
+          chmod +x docker.min.sh
+          bash docker.min.sh -v
+          bash docker.min.sh -h > /dev/null
+
   integration:
     name: Integration Tests
     runs-on: ubuntu-latest

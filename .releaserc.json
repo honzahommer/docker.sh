@@ -12,7 +12,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "sed -i 's/^VERSION=\".*\"/VERSION=\"${nextRelease.version}\"/' docker.sh"
+        "prepareCmd": "sed -i 's/^VERSION=\".*\"/VERSION=\"${nextRelease.version}\"/' docker.sh && shfmt -mn docker.sh > docker.min.sh && chmod +x docker.min.sh"
       }
     ],
     [
@@ -22,6 +22,20 @@
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ],
-    "@semantic-release/github"
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {
+            "path": "docker.sh",
+            "label": "docker.sh"
+          },
+          {
+            "path": "docker.min.sh",
+            "label": "docker.min.sh (minified)"
+          }
+        ]
+      }
+    ]
   ]
 }
