@@ -66,8 +66,8 @@ _log() {
     printf '%s%s [%s] %s%s\n' \
       "$color" "$(date +'%Y-%m-%dT%H:%M:%S%z')" "$level" "$C_RESET" "$message" >&2
   if [ -n "$*" ]; then
-    printf '\n%s%s%s\n' \
-      "$C_MUT" "$(echo "$*" | grep -v "docker --help")" "$C_RESET" >&2
+    printf '\n%s%s%s\n\n' \
+      "$C_MUT" "$(echo "$*" | awk '!/docker --help/ && NF {p=1} p && !/docker --help/ { printf "%*s%s\n", 2, "", $0 }')" "$C_RESET" >&2
   fi
 }
 
@@ -168,8 +168,7 @@ fi
 USERNAME="${USERNAME:-${USER:-}}"
 
 if [[ -z "$PASSWORD" ]]; then
-  log_err "Password is required"
-  exit 1
+  die "Password is required"
 fi
 
 # --- Login ---
@@ -186,7 +185,7 @@ else
   if [[ $CMD_STATUS -ne 0 ]]; then
     die "docker login failed (exit $CMD_STATUS)" "$CMD_OUTPUT"
   fi
-  log_info "$CMD_OUTPUT"
+  log_info "docker login succeeded" "$CMD_OUTPUT"
 fi
 
 # --- Resolve Docker command ---
@@ -205,6 +204,11 @@ fi
 
 # --- Execute remaining Docker command ---
 if [[ $# -gt 0 ]]; then
+  if [[ $1 = "login" ]]; then
+    log_warn "CLI handles one-shot login"
+    exit 0
+  fi
+
   if [[ $DRY_RUN -eq 1 ]]; then
     log_debug "[dry-run] docker $*"
   else
