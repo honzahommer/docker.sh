@@ -42,3 +42,6 @@ node_modules
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 !*.code-workspace
+
+# Config gile
+docker.sh.conf
