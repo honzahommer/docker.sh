@@ -1,3 +1,18 @@
+# [1.1.0](https://github.com/honzahommer/docker.sh/compare/v1.0.0...v1.1.0) (2026-06-09)
+
+
+### Bug Fixes
+
+* handle if user manually call login command, login message fix, _log improvements ([2ac6f22](https://github.com/honzahommer/docker.sh/commit/2ac6f229bb7573bfb88d8942791a0fa563dc84d5))
+* **test:** use dry-run for quiet mode integration test ([5da55a2](https://github.com/honzahommer/docker.sh/commit/5da55a26e5f5f49c9ae3291856463c4ab23dd432))
+
+
+### Features
+
+* add -v/--version flag with semantic-release auto-bump ([3209df5](https://github.com/honzahommer/docker.sh/commit/3209df5fb58de10214cafffeeed17fa8632f8166))
+* add test suite, GitHub Actions CI, and semantic-release ([81186e8](https://github.com/honzahommer/docker.sh/commit/81186e81bf86f7229ec777f59a41e9569acb3516))
+* minify docker.sh via shfmt and publish as GitHub release asset ([d7d7216](https://github.com/honzahommer/docker.sh/commit/d7d72164956ad028bd9f2bf10c9686b04374008c))
+
 # 1.0.0 (2026-06-05)
 
 

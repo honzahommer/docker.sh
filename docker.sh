@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # --- Version (updated by semantic-release) ---
-VERSION="1.0.0"
+VERSION="1.1.0"
 
 # --- Temporary Docker config directory ---
 DOCKER_CONFIG="$(mktemp -d)"
